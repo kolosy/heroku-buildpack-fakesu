@@ -66,9 +66,9 @@ make install >/dev/null
 echo "fakechroot vendored" | indent
 
 cd $BUILDPACK_DIR
-echo "-----> Bootstraping a new base ubuntu lucid into /app/.root/"
+echo "-----> Bootstraping a new base ubuntu trusty into /app/.root/"
 mkdir -p $BUILD_DIR/.root
-fakechroot -s fakeroot debootstrap --no-check-gpg --variant=fakechroot lucid $BUILD_DIR/.root >/dev/null
+fakechroot -s fakeroot debootstrap --no-check-gpg --variant=fakechroot trusty $BUILD_DIR/.root >/dev/null
 fakechroot fakeroot chroot $BUILD_DIR/.root apt-get install -y --force-yes gpgv >/dev/null 2>&1
 echo "/app/.root bootstraped" | indent
 
@@ -78,9 +78,9 @@ echo "cd $HOME" >> $BUILD_DIR/.root/root/.bashrc
 
 echo "-----> Updating packages"
 fakechroot fakeroot chroot $BUILD_DIR/.root bash -c "cat > /etc/apt/sources.list <<EOF
-deb http://archive.ubuntu.com/ubuntu lucid main universe
-deb http://archive.ubuntu.com/ubuntu lucid-security main
-deb http://archive.ubuntu.com/ubuntu lucid-updates main
+deb http://archive.ubuntu.com/ubuntu trusty main universe
+deb http://archive.ubuntu.com/ubuntu trusty-security main
+deb http://archive.ubuntu.com/ubuntu trusty-updates main
 EOF"
 fakechroot fakeroot chroot $BUILD_DIR/.root apt-get update >/dev/null
 echo "packages updated" | indent
